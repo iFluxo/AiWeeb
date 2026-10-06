@@ -1,0 +1,216 @@
+---
+import type { Command } from '../../types/command';
+
+interface Props {
+  command: Command;
+}
+
+const { command } = Astro.props;
+
+const categoryClass = `category-chip category-chip--${command.category.toLowerCase()}`;
+const searchText = `${command.name} ${command.description} ${command.category}`.toLowerCase();
+const optionLabel = `${command.options.length} option${command.options.length === 1 ? '' : 's'}`;
+---
+
+<li
+  class="cmd"
+  data-card
+  data-category={command.category}
+  data-search={searchText}
+>
+  <div class="cmd__head">
+    <h3 class="cmd__name mono">
+      <span class="cmd__slash" aria-hidden="true">/</span>{command.name}
+    </h3>
+    <span class={categoryClass}>{command.category}</span>
+  </div>
+
+  <p class="cmd__desc">{command.description}</p>
+
+  {
+    command.options.length > 0 && (
+      <details class="cmd__details">
+        <summary class="cmd__summary">
+          {optionLabel}
+          <span class="cmd__chevron" aria-hidden="true" />
+        </summary>
+        <ul class="cmd__options">
+          {command.options.map((option) => (
+            <li class="cmd__option">
+              <span class="cmd__option-head">
+                <code class="mono">{option.name}</code>
+                <span class="cmd__option-type">{option.type}</span>
+                {option.required && <span class="cmd__required">required</span>}
+              </span>
+              <span class="cmd__option-desc">{option.description}</span>
+            </li>
+          ))}
+        </ul>
+      </details>
+    )
+  }
+
+  <div class="cmd__meta">
+    <span class="chip mono cmd__usage">{command.usage}</span>
+    <span class="chip">cd {command.cooldown}</span>
+    {command.premiumOnly && <span class="chip chip--warning">premium</span>}
+    {
+      command.permissions.map((permission) => (
+        <span class="chip cmd__permission">{permission}</span>
+      ))
+    }
+  </div>
+</li>
+
+<style>
+  .cmd {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    padding: 1.35rem 1.4rem;
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    transition:
+      border-color var(--dur) ease,
+      background-color var(--dur) ease,
+      transform var(--dur) var(--ease);
+  }
+
+  .cmd:hover {
+    background: var(--surface-2);
+    border-color: var(--border-strong);
+    transform: translateY(-2px);
+  }
+
+  .cmd__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .cmd__name {
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .cmd__slash {
+    color: var(--accent-text);
+  }
+
+  .cmd__desc {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+
+  .cmd__details {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface-1);
+  }
+
+  .cmd__summary {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 0.85rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    list-style: none;
+    border-radius: var(--radius);
+    transition: color var(--dur-fast) ease;
+  }
+
+  .cmd__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .cmd__summary:hover {
+    color: var(--text);
+  }
+
+  .cmd__chevron {
+    width: 0.45rem;
+    height: 0.45rem;
+    margin-left: auto;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg) translate(-1px, -1px);
+    transition: transform var(--dur-fast) ease;
+  }
+
+  .cmd__details[open] .cmd__chevron {
+    transform: rotate(225deg) translate(-2px, -2px);
+  }
+
+  .cmd__options {
+    display: grid;
+    gap: 0.75rem;
+    padding: 0.85rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .cmd__option {
+    display: grid;
+    gap: 0.2rem;
+  }
+
+  .cmd__option-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .cmd__option-head code {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .cmd__option-type {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--text-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .cmd__required {
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: var(--danger);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .cmd__option-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  .cmd__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-top: auto;
+  }
+
+  .cmd__usage {
+    max-width: 100%;
+    font-size: 0.75rem;
+    overflow-wrap: anywhere;
+  }
+
+  .cmd__permission {
+    font-size: 0.7rem;
+    color: var(--text-faint);
+  }
+</style>

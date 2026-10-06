@@ -1,0 +1,256 @@
+---
+import { bot } from '../../config/bot';
+import { commands } from '../../data/commands';
+import { stats } from '../../data/stats';
+import Icon from '../ui/Icon.astro';
+import Logo from '../ui/Logo.astro';
+
+const highlightNames = ['play', 'purge', 'rank'] as const;
+
+const highlights = highlightNames
+  .map((name) => commands.find((command) => command.name === name))
+  .filter((command) => command !== undefined);
+
+const serverCount = stats[0]?.value ?? '';
+const uptime = stats[3]?.value ?? '';
+---
+
+<section class="hero">
+  <div class="container hero__grid">
+    <div class="hero__content">
+      <span class="badge animate-in">
+        <span class="badge__dot" aria-hidden="true"></span>
+        Trusted by {serverCount} servers
+      </span>
+
+      <h1 class="hero__title animate-in delay-1">
+        Run your Discord server on <span class="hero__accent">autopilot</span>.
+      </h1>
+
+      <p class="hero__lead animate-in delay-2">
+        {bot.name} handles moderation, music, leveling and everyday tasks — so you
+        can focus on your community instead of your tooling.
+      </p>
+
+      <div class="hero__actions animate-in delay-3">
+        <a
+          href={bot.inviteUrl}
+          class="btn btn--primary btn--lg"
+          rel="noopener noreferrer"
+        >
+          Add to Discord
+          <Icon name="arrow-right" size={18} />
+        </a>
+        <a href="/commands/" class="btn btn--secondary btn--lg">
+          Browse commands
+        </a>
+      </div>
+    </div>
+
+    <div class="hero__visual animate-in delay-2">
+      <div class="bot-card glass">
+        <div class="bot-card__head">
+          <Logo />
+          <span class="bot-card__status">
+            <span class="bot-card__status-dot" aria-hidden="true"></span>
+            Online
+          </span>
+        </div>
+
+        <ul class="bot-card__list">
+          {
+            highlights.map((command) => (
+              <li class="bot-card__row">
+                <code class="mono">/{command.name}</code>
+                <span class="bot-card__detail">{command.description}</span>
+                <span class={`category-chip category-chip--${command.category.toLowerCase()}`}>
+                  {command.category}
+                </span>
+              </li>
+            ))
+          }
+        </ul>
+
+        <div class="bot-card__foot">
+          <span>{commands.length} slash commands built in</span>
+          <span>{uptime} uptime</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    padding-block: clamp(3.5rem, 8vw, 5.5rem) var(--section-y);
+  }
+
+  .hero__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 3.5rem;
+  }
+
+  .hero__content,
+  .hero__visual {
+    min-width: 0;
+  }
+
+  .hero__content {
+    max-width: 44rem;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .hero__title {
+    max-width: 26ch;
+    margin: 1.5rem auto 0;
+    font-size: clamp(2.5rem, 6.5vw, 3.9rem);
+  }
+
+  .hero__accent {
+    color: var(--accent-text);
+  }
+
+  @supports ((-webkit-background-clip: text) or (background-clip: text)) {
+    .hero__accent {
+      background-image: linear-gradient(
+        100deg,
+        var(--accent-text),
+        color-mix(in srgb, var(--accent-text) 55%, #d8b4fe)
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+  }
+
+  .hero__lead {
+    max-width: 38rem;
+    margin: 1.35rem auto 0;
+    font-size: clamp(1.05rem, 2.2vw, 1.175rem);
+    color: var(--text-muted);
+  }
+
+  .hero__actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.85rem;
+    max-width: 34rem;
+    margin: 2.25rem auto 0;
+  }
+
+  .hero__actions .btn {
+    width: 100%;
+  }
+
+  .hero__visual {
+    display: flex;
+    justify-content: center;
+  }
+
+  .bot-card {
+    width: 100%;
+    max-width: 42rem;
+    min-width: 0;
+    overflow: hidden;
+    padding: 1.4rem;
+    box-shadow: var(--shadow-2);
+  }
+
+  .bot-card__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-bottom: 1.1rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .bot-card__status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text-muted);
+  }
+
+  .bot-card__status-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    background: var(--success);
+    border-radius: 50%;
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--success) 22%, transparent);
+  }
+
+  .bot-card__list {
+    display: grid;
+    gap: 0.6rem;
+    padding-block: 1.1rem;
+  }
+
+  .bot-card__row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.72rem 0.85rem;
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+
+  .bot-card__head > * + *,
+  .bot-card__row > * + * {
+    margin-left: 0.85rem;
+  }
+
+  .bot-card__row > * {
+    margin-top: 0.35rem;
+  }
+
+  @supports (gap: 0.5rem) {
+    .bot-card__head > * + *,
+    .bot-card__row > * + * {
+      margin-left: 0;
+    }
+
+    .bot-card__row > * {
+      margin-top: 0;
+    }
+  }
+
+  .bot-card__row code {
+    flex-shrink: 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .bot-card__detail {
+    flex: 1 1 auto;
+    min-width: 8rem;
+    line-height: 1.45;
+    font-size: 0.8rem;
+    color: var(--text-faint);
+  }
+
+  .bot-card__foot {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding-top: 1rem;
+    font-size: 0.78rem;
+    color: var(--text-faint);
+    border-top: 1px solid var(--border);
+  }
+
+  @media (min-width: 640px) {
+    .hero__actions {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+</style>

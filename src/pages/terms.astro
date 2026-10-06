@@ -1,0 +1,204 @@
+---
+import BaseLayout from '../components/layout/BaseLayout.astro';
+import LegalToc from '../components/layout/LegalToc.astro';
+import PageHero from '../components/layout/PageHero.astro';
+import { bot } from '../config/bot';
+import type { PageMeta } from '../types/seo';
+
+const meta: PageMeta = {
+  title: `Terms of Service — ${bot.name}`,
+  description: `The terms and conditions that govern your use of the ${bot.name} Discord bot, support server and website.`,
+  path: '/terms/',
+};
+
+const sections = [
+  { id: 'acceptance', label: 'Acceptance of terms' },
+  { id: 'service', label: 'The service' },
+  { id: 'eligibility', label: 'Eligibility' },
+  { id: 'acceptable-use', label: 'Acceptable use' },
+  { id: 'availability', label: 'Availability' },
+  { id: 'intellectual-property', label: 'Intellectual property' },
+  { id: 'user-content', label: 'Your content' },
+  { id: 'third-party', label: 'Third-party services' },
+  { id: 'termination', label: 'Termination' },
+  { id: 'disclaimer', label: 'Disclaimer' },
+  { id: 'liability', label: 'Limitation of liability' },
+  { id: 'indemnity', label: 'Indemnification' },
+  { id: 'law', label: 'Governing law' },
+  { id: 'changes', label: 'Changes to these terms' },
+  { id: 'contact', label: 'Contact' },
+];
+---
+
+<BaseLayout meta={meta}>
+  <PageHero
+    eyebrow="Legal"
+    title="Terms of Service"
+    lead={`These terms govern your use of ${bot.name}. By inviting the Bot or using this website you agree to them.`}
+    updated={bot.legal.updatedDate}
+  />
+
+  <div class="container legal">
+    <LegalToc items={sections} />
+
+    <article class="prose">
+      <h2 id="acceptance">Acceptance of terms</h2>
+      <p>
+        These Terms of Service (the “Terms”) form a binding agreement between
+        you and {bot.developer}, the developer of {bot.name} (the “Bot”). By
+        inviting the Bot to a Discord server, interacting with it, or using
+        this website, you acknowledge that you have read and agree to these
+        Terms. If you do not agree, do not use the Bot.
+      </p>
+
+      <h2 id="service">The service</h2>
+      <p>
+        {bot.name} provides automated features for Discord servers, including
+        moderation tools, music playback, leveling, economy, games and
+        utility commands. Features may be added, modified or removed at any
+        time to improve the service, respond to Discord platform changes or
+        protect the community.
+      </p>
+
+      <h2 id="eligibility">Eligibility</h2>
+      <p>
+        You must meet the minimum age requirement to use Discord in your
+        jurisdiction and comply with the
+        <a href="https://discord.com/terms" rel="noopener noreferrer">
+          Discord Terms of Service
+        </a>
+        and
+        <a href="https://discord.com/guidelines" rel="noopener noreferrer">
+          Community Guidelines
+        </a>. If you invite the Bot to a server, you confirm that you have the
+        authority to accept these Terms on behalf of that server and its
+        members.
+      </p>
+
+      <h2 id="acceptable-use">Acceptable use</h2>
+      <p>You agree not to misuse the Bot. In particular, you will not:</p>
+      <ul>
+        <li>
+          Use the Bot to harass, threaten, impersonate or harm other people,
+          or to distribute illegal, hateful or sexually exploitative content.
+        </li>
+        <li>
+          Attempt to disrupt, overload or gain unauthorised access to the Bot,
+          its infrastructure or the accounts of others.
+        </li>
+        <li>
+          Reverse engineer, scrape or resell any part of the service, except
+          where applicable law expressly permits it.
+        </li>
+        <li>
+          Use the Bot in violation of Discord’s terms, applicable law, or the
+          rights of third parties.
+        </li>
+      </ul>
+      <p>
+        We may restrict or remove access to the Bot when we reasonably believe
+        these rules have been broken.
+      </p>
+
+      <h2 id="availability">Availability</h2>
+      <p>
+        The Bot is provided on an “as available” basis. We strive for high
+        uptime but do not guarantee uninterrupted or error-free operation.
+        Maintenance, outages, failures of Discord or third-party providers may
+        temporarily limit functionality. We may suspend the Bot, in whole or in
+        part, at our discretion without prior notice.
+      </p>
+
+      <h2 id="intellectual-property">Intellectual property</h2>
+      <p>
+        The Bot, its source code, branding, logos, documentation and this
+        website are owned by {bot.developer} and are protected by applicable
+        intellectual-property laws. These Terms grant you a limited,
+        non-exclusive, non-transferable licence to use the service for its
+        intended purpose. No ownership rights are transferred to you.
+      </p>
+
+      <h2 id="user-content">Your content</h2>
+      <p>
+        You retain all rights to the content you and your server members
+        create, including messages, configuration choices and media submitted
+        through commands. You grant us only the limited permission required to
+        process that content in order to provide the features you request. You
+        are responsible for ensuring that your content and your use of the Bot
+        comply with these Terms and applicable law.
+      </p>
+
+      <h2 id="third-party">Third-party services</h2>
+      <p>
+        The Bot operates inside Discord and may retrieve content from
+        third-party platforms, for example music sources. Your use of those
+        platforms is governed by their own terms and privacy policies. We are
+        not responsible for the content, policies or practices of third-party
+        services.
+      </p>
+
+      <h2 id="termination">Termination</h2>
+      <p>
+        You may stop using the Bot at any time by removing it from your
+        server. We may suspend or terminate your access to the Bot if you
+        breach these Terms, if required by law, or to prevent harm to the
+        service or its users. Sections of these Terms that by their nature
+        should survive termination — including disclaimers and limitations of
+        liability — will survive.
+      </p>
+
+      <h2 id="disclaimer">Disclaimer of warranties</h2>
+      <p>
+        To the fullest extent permitted by law, the Bot and this website are
+        provided “as is” and “as available”, without warranties of any kind,
+        whether express or implied, including merchantability, fitness for a
+        particular purpose and non-infringement. We do not warrant that the
+        service will meet your requirements, be secure, or be free of errors
+        or harmful components.
+      </p>
+
+      <h2 id="liability">Limitation of liability</h2>
+      <p>
+        To the fullest extent permitted by law, {bot.developer} will not be
+        liable for any indirect, incidental, special, consequential or
+        punitive damages, or any loss of data, profits, goodwill or server
+        content arising from or related to your use of the Bot. Our total
+        liability for any claim relating to the service will not exceed the
+        amount you paid us in the twelve months before the claim arose, or one
+        hundred US dollars if you have paid nothing.
+      </p>
+
+      <h2 id="indemnity">Indemnification</h2>
+      <p>
+        You agree to indemnify and hold harmless {bot.developer} from and
+        against any claims, damages and expenses — including reasonable legal
+        fees — arising out of your misuse of the Bot, your violation of these
+        Terms, or your violation of any rights of a third party.
+      </p>
+
+      <h2 id="law">Governing law</h2>
+      <p>
+        These Terms are governed by the laws of {bot.legal.jurisdiction},
+        without regard to its conflict-of-law principles. Any disputes will be
+        resolved in the courts of that jurisdiction, unless applicable law
+        mandates otherwise.
+      </p>
+
+      <h2 id="changes">Changes to these terms</h2>
+      <p>
+        We may revise these Terms from time to time. The date at the top of
+        this page shows when they were last updated. Material changes will be
+        announced through the support server. Continuing to use the Bot after
+        an update means you accept the revised Terms.
+      </p>
+
+      <h2 id="contact">Contact</h2>
+      <p>
+        Questions about these Terms can be sent to
+        <a href={`mailto:${bot.email}`}>{bot.email}</a>. For details about how
+        we handle data, read our
+        <a href="/privacy/">Privacy Policy</a>.
+      </p>
+    </article>
+  </div>
+</BaseLayout>

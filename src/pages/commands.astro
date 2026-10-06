@@ -1,0 +1,23 @@
+---
+import CommandsExplorer from '../components/commands/CommandsExplorer.astro';
+import BaseLayout from '../components/layout/BaseLayout.astro';
+import PageHero from '../components/layout/PageHero.astro';
+import { bot } from '../config/bot';
+import { commands } from '../data/commands';
+import type { PageMeta } from '../types/seo';
+
+const meta: PageMeta = {
+  title: `Commands — ${bot.name}`,
+  description: `Browse all ${commands.length} ${bot.name} slash commands with usage, options, permissions and cooldowns. Search instantly and filter by category.`,
+  path: '/commands/',
+};
+---
+
+<BaseLayout meta={meta}>
+  <PageHero
+    eyebrow="Commands"
+    title="Everything the bot can do"
+    lead={`Search ${commands.length} slash commands, filter them by category, and expand any command for its options, permissions and cooldown.`}
+  />
+  <CommandsExplorer />
+</BaseLayout>

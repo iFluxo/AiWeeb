@@ -1,0 +1,40 @@
+---
+import CommandsPreview from '../components/home/CommandsPreview.astro';
+import CtaBanner from '../components/home/CtaBanner.astro';
+import Features from '../components/home/Features.astro';
+import Hero from '../components/home/Hero.astro';
+import HomeStats from '../components/home/HomeStats.astro';
+import BaseLayout from '../components/layout/BaseLayout.astro';
+import { bot } from '../config/bot';
+import { site } from '../config/site';
+import type { PageMeta } from '../types/seo';
+
+const meta: PageMeta = {
+  title: site.title,
+  description: site.description,
+  path: '/',
+  structuredData: [
+    {
+      '@type': 'SoftwareApplication',
+      name: bot.name,
+      description: bot.description,
+      url: site.url,
+      applicationCategory: 'CommunicationApplication',
+      operatingSystem: 'Discord',
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'USD',
+      },
+    },
+  ],
+};
+---
+
+<BaseLayout meta={meta}>
+  <Hero />
+  <Features />
+  <CommandsPreview />
+  <HomeStats />
+  <CtaBanner id="final-cta" />
+</BaseLayout>

@@ -1,0 +1,70 @@
+---
+import { bot } from '../../config/bot';
+import { site } from '../../config/site';
+import type { PageMeta } from '../../types/seo';
+
+interface Props {
+  meta: PageMeta;
+}
+
+const { meta } = Astro.props;
+
+const canonical = new URL(meta.path, site.url);
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      name: site.name,
+      description: site.description,
+      url: site.url,
+      inLanguage: site.lang,
+    },
+    {
+      '@type': 'WebPage',
+      name: meta.title,
+      description: meta.description,
+      url: canonical.href,
+      inLanguage: site.lang,
+      isPartOf: { '@type': 'WebSite', name: site.name, url: site.url },
+      publisher: {
+        '@type': 'Organization',
+        name: bot.name,
+        url: site.url,
+        email: bot.email,
+      },
+    },
+    ...(meta.structuredData ?? []),
+  ],
+};
+---
+
+<title>{meta.title}</title>
+<meta name="description" content={meta.description} />
+{
+  meta.noindex && (
+    <meta name="robots" content="noindex, nofollow" />
+  )
+}
+<link rel="canonical" href={canonical.href} />
+<meta
+  name="theme-color"
+  content={site.themeColorDark}
+  media="(prefers-color-scheme: dark)"
+/>
+<meta
+  name="theme-color"
+  content={site.themeColorLight}
+  media="(prefers-color-scheme: light)"
+/>
+<meta property="og:site_name" content={site.name} />
+<meta property="og:title" content={meta.title} />
+<meta property="og:description" content={meta.description} />
+<meta property="og:url" content={canonical.href} />
+<meta property="og:type" content={meta.type ?? 'website'} />
+<meta property="og:locale" content={site.locale} />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content={meta.title} />
+<meta name="twitter:description" content={meta.description} />
+<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />

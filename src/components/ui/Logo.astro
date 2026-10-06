@@ -1,0 +1,63 @@
+---
+import { bot } from '../../config/bot';
+
+interface Props {
+  withName?: boolean;
+}
+
+const { withName = true } = Astro.props;
+---
+
+<span class="logo">
+  <span class="logo__mark" aria-hidden="true"></span>
+  {withName && <span class="logo__name">{bot.name}</span>}
+</span>
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+  }
+
+  .logo__mark {
+    position: relative;
+    width: 1.9rem;
+    height: 1.9rem;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, #818cff, #4a55e0);
+    border-radius: 0.6rem;
+    box-shadow: 0 4px 14px -5px var(--glow);
+  }
+
+  .logo__mark::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    width: 0.55rem;
+    height: 0.55rem;
+    margin: auto;
+    background: #fff;
+    border-radius: 50%;
+  }
+
+  .logo__mark::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    width: 1.4rem;
+    height: 0.65rem;
+    margin: auto;
+    border: 1.5px solid rgb(255 255 255 / 0.9);
+    border-radius: 50%;
+    transform: rotate(-32deg);
+  }
+
+  .logo__name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+</style>

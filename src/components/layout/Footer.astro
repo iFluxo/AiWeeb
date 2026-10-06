@@ -1,0 +1,173 @@
+---
+import { bot } from '../../config/bot';
+import { navItems } from '../../config/nav';
+import { site } from '../../config/site';
+import Icon from '../ui/Icon.astro';
+import Logo from '../ui/Logo.astro';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a href="/" class="footer__logo" aria-label={`${bot.name} — home`}>
+          <Logo />
+        </a>
+        <p class="footer__tagline">{bot.tagline}. Free, reliable and built for communities of every size.</p>
+        <p class="footer__status">
+          <span class="footer__status-dot" aria-hidden="true"></span>
+          All systems operational
+        </p>
+      </div>
+
+      <nav class="footer__col" aria-label="Footer — product">
+        <h2 class="footer__heading">Product</h2>
+        <ul class="footer__links">
+          {
+            navItems.map((item) => (
+              <li>
+                <a href={item.href}>{item.label}</a>
+              </li>
+            ))
+          }
+          <li>
+            <a href={bot.inviteUrl} rel="noopener noreferrer">Add to Discord</a>
+          </li>
+          <li>
+            <a href={bot.supportUrl} rel="noopener noreferrer">Support server</a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="footer__col">
+        <h2 class="footer__heading">Contact</h2>
+        <ul class="footer__links">
+          <li>
+            <a href={`mailto:${bot.email}`} class="footer__contact">
+              <Icon name="mail" size={16} />
+              {bot.email}
+            </a>
+          </li>
+          <li class="footer__meta">Developed by {bot.developer}</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <p>
+        &copy; {year} {bot.name}. All rights reserved.
+      </p>
+      <p class="footer__locale">{site.name} &middot; {site.lang.toUpperCase()}</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    margin-top: auto;
+    padding-block: clamp(3rem, 6vw, 4.5rem) 2rem;
+    background: linear-gradient(to bottom, transparent, rgb(0 0 0 / 0.25));
+    border-top: 1px solid var(--border);
+  }
+
+  html[data-theme='light'] .footer {
+    background: linear-gradient(to bottom, transparent, rgb(16 20 35 / 0.04));
+  }
+
+  .footer__grid {
+    display: grid;
+    gap: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+
+  .footer__logo {
+    display: inline-flex;
+    border-radius: var(--radius-sm);
+  }
+
+  .footer__tagline {
+    max-width: 26rem;
+    margin-top: 1rem;
+    font-size: 0.925rem;
+    color: var(--text-muted);
+  }
+
+  .footer__status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.25rem;
+    font-size: 0.825rem;
+    font-weight: 600;
+    color: var(--text-muted);
+  }
+
+  .footer__status-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    background: var(--success);
+    border-radius: 50%;
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--success) 22%, transparent);
+  }
+
+  .footer__heading {
+    margin-bottom: 1rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+
+  .footer__links {
+    display: grid;
+    gap: 0.65rem;
+    font-size: 0.925rem;
+  }
+
+  .footer__links a {
+    color: var(--text-muted);
+    transition: color var(--dur-fast) ease;
+  }
+
+  .footer__links a:hover {
+    color: var(--text);
+  }
+
+  .footer__contact {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .footer__meta {
+    color: var(--text-faint);
+    font-size: 0.875rem;
+  }
+
+  .footer__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding-top: 1.75rem;
+    font-size: 0.85rem;
+    color: var(--text-faint);
+    border-top: 1px solid var(--border);
+  }
+
+  .footer__locale {
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+
+  @media (min-width: 768px) {
+    .footer__grid {
+      grid-template-columns: 1.6fr 1fr 1fr;
+      gap: 3rem;
+    }
+  }
+</style>

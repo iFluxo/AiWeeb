@@ -1,0 +1,112 @@
+---
+import { commands } from '../../data/commands';
+import Icon from '../ui/Icon.astro';
+
+const featuredNames = ['play', 'ban', 'rank', 'daily', 'serverinfo', 'meme'] as const;
+
+const featured = featuredNames
+  .map((name) => commands.find((command) => command.name === name))
+  .filter((command) => command !== undefined);
+---
+
+<section class="section" id="commands-preview" aria-labelledby="commands-preview-title">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Commands</span>
+      <h2 class="section-title" id="commands-preview-title">
+        A command for every moment
+      </h2>
+      <p class="section-desc">
+        Simple slash commands, sensible defaults. Preview a few favorites — the
+        full library is one click away.
+      </p>
+    </div>
+
+    <ul class="preview reveal">
+      {
+        featured.map((command) => (
+          <li class="preview__item">
+            <div class="preview__head">
+              <code class="preview__name mono">/{command.name}</code>
+              <span class={`category-chip category-chip--${command.category.toLowerCase()}`}>
+                {command.category}
+              </span>
+            </div>
+            <p class="preview__desc">{command.description}</p>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="preview__action reveal">
+      <a href="/commands/" class="btn btn--secondary">
+        View all {commands.length} commands
+        <Icon name="arrow-right" size={18} />
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .preview {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .preview__item {
+    display: grid;
+    gap: 0.6rem;
+    padding: 1.3rem 1.35rem;
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    transition:
+      border-color var(--dur) ease,
+      background-color var(--dur) ease,
+      transform var(--dur) var(--ease);
+  }
+
+  .preview__item:hover {
+    background: var(--surface-2);
+    border-color: var(--border-strong);
+    transform: translateY(-2px);
+  }
+
+  .preview__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .preview__name {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--text);
+  }
+
+  .preview__desc {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+
+  .preview__action {
+    display: flex;
+    justify-content: center;
+    margin-top: 2.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .preview {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .preview {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.25rem;
+    }
+  }
+</style>

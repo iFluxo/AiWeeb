@@ -1,0 +1,360 @@
+---
+import { bot } from '../../config/bot';
+import { navItems } from '../../config/nav';
+import Icon from '../ui/Icon.astro';
+import Logo from '../ui/Logo.astro';
+
+const pathname = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === '/' ? pathname === '/' : pathname.startsWith(href);
+---
+
+<header class="header" data-header>
+  <div class="container header__inner">
+    <a href="/" class="header__brand" aria-label={`${bot.name} — home`}>
+      <Logo />
+    </a>
+
+    <nav class="header__nav" aria-label="Main navigation">
+      <ul class="header__list">
+        {
+          navItems.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class:list={['nav-link', { 'is-active': isActive(item.href) }]}
+                aria-current={isActive(item.href) ? 'page' : undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="header__actions">
+      <button
+        type="button"
+        class="theme-toggle"
+        data-theme-toggle
+        aria-label="Toggle color theme"
+        title="Toggle color theme"
+      >
+        <Icon name="sun" size={18} class="theme-toggle__icon theme-toggle__icon--sun" />
+        <Icon name="moon" size={18} class="theme-toggle__icon theme-toggle__icon--moon" />
+      </button>
+
+      <a
+        href={bot.inviteUrl}
+        class="btn btn--primary btn--sm header__cta"
+        rel="noopener noreferrer"
+      >
+        Add to Discord
+      </a>
+
+      <button
+        type="button"
+        class="menu-toggle"
+        data-menu-toggle
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label="Open menu"
+      >
+        <Icon name="menu" size={22} class="menu-toggle__icon menu-toggle__icon--open" />
+        <Icon name="close" size={22} class="menu-toggle__icon menu-toggle__icon--close" />
+      </button>
+    </div>
+  </div>
+
+  <div class="menu" id="mobile-menu" data-menu data-open="false">
+    <div class="container">
+      <ul class="menu__list">
+        {
+          navItems.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class:list={['menu__link', { 'is-active': isActive(item.href) }]}
+                aria-current={isActive(item.href) ? 'page' : undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <a
+        href={bot.inviteUrl}
+        class="btn btn--primary menu__cta"
+        rel="noopener noreferrer"
+      >
+        Add to Discord
+      </a>
+      <a href={bot.supportUrl} class="btn btn--secondary menu__cta" rel="noopener noreferrer">
+        Support server
+      </a>
+    </div>
+  </div>
+</header>
+
+<script>
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  const menuToggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  const menu = document.querySelector<HTMLElement>('[data-menu]');
+  const themeToggle = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
+
+  const isMenuOpen = () => menuToggle?.getAttribute('aria-expanded') === 'true';
+
+  const setMenuOpen = (open: boolean) => {
+    if (!menuToggle || !menu) return;
+    menuToggle.setAttribute('aria-expanded', String(open));
+    menuToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    menu.dataset.open = String(open);
+    document.body.classList.toggle('menu-open', open);
+  };
+
+  menuToggle?.addEventListener('click', () => setMenuOpen(!isMenuOpen()));
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && isMenuOpen()) {
+      setMenuOpen(false);
+      menuToggle?.focus();
+    }
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!isMenuOpen() || !(event.target instanceof Node) || !header) return;
+    if (!header.contains(event.target)) setMenuOpen(false);
+  });
+
+  menu?.addEventListener('click', (event) => {
+    if (event.target instanceof Element && event.target.closest('a')) setMenuOpen(false);
+  });
+
+  const desktopQuery = window.matchMedia('(min-width: 768px)');
+  desktopQuery.addEventListener('change', (event) => {
+    if (event.matches) setMenuOpen(false);
+  });
+
+  themeToggle?.addEventListener('click', () => {
+    const root = document.documentElement;
+    const next = root.dataset.theme === 'light' ? 'dark' : 'light';
+    root.dataset.theme = next;
+    try {
+      localStorage.setItem('theme', next);
+    } catch {}
+  });
+
+  const onScroll = () => header?.classList.toggle('is-scrolled', window.scrollY > 8);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+</script>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--nav-bg);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(var(--blur)) saturate(1.6);
+    -webkit-backdrop-filter: blur(var(--blur)) saturate(1.6);
+    transition: box-shadow var(--dur) ease;
+  }
+
+  .header.is-scrolled {
+    box-shadow: 0 10px 30px -18px rgb(0 0 0 / 0.5);
+  }
+
+  .header__inner {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    height: var(--nav-h);
+  }
+
+  .header__brand {
+    display: inline-flex;
+    align-items: center;
+    margin-right: auto;
+    border-radius: var(--radius-sm);
+  }
+
+  .header__nav {
+    display: none;
+  }
+
+  .header__list {
+    display: flex;
+    gap: 0.25rem;
+  }
+
+  .nav-link {
+    display: inline-flex;
+    padding: 0.5rem 0.9rem;
+    font-size: 0.925rem;
+    font-weight: 550;
+    color: var(--text-muted);
+    border-radius: var(--radius-sm);
+    transition:
+      color var(--dur-fast) ease,
+      background-color var(--dur-fast) ease;
+  }
+
+  .nav-link:hover {
+    color: var(--text);
+    background: var(--surface-2);
+  }
+
+  .nav-link.is-active {
+    color: var(--text);
+    background: var(--surface-3);
+  }
+
+  .header__actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .theme-toggle,
+  .menu-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.35rem;
+    height: 2.35rem;
+    padding: 0;
+    color: var(--text-muted);
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition:
+      color var(--dur-fast) ease,
+      background-color var(--dur-fast) ease,
+      border-color var(--dur-fast) ease;
+  }
+
+  .theme-toggle:hover,
+  .menu-toggle:hover {
+    color: var(--text);
+    background: var(--surface-2);
+    border-color: var(--border-strong);
+  }
+
+  :global(.theme-toggle__icon--moon),
+  :global(.menu-toggle__icon--close) {
+    display: none;
+  }
+
+  html[data-theme='light'] :global(.theme-toggle__icon--sun) {
+    display: none;
+  }
+
+  html[data-theme='light'] :global(.theme-toggle__icon--moon) {
+    display: block;
+  }
+
+  .header__cta {
+    display: none;
+  }
+
+  :global(.menu-toggle__icon--open) {
+    display: block;
+  }
+
+  .menu-toggle[aria-expanded='true'] :global(.menu-toggle__icon--open) {
+    display: none;
+  }
+
+  .menu-toggle[aria-expanded='true'] :global(.menu-toggle__icon--close) {
+    display: block;
+  }
+
+  .menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: calc(100vh - var(--nav-h));
+    max-height: calc(100dvh - var(--nav-h));
+    padding-block: 1rem 1.4rem;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    visibility: hidden;
+    opacity: 0;
+    background: color-mix(in srgb, var(--bg-elevated) 92%, transparent);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(var(--blur)) saturate(1.6);
+    -webkit-backdrop-filter: blur(var(--blur)) saturate(1.6);
+    transform: translateY(-6px);
+    pointer-events: none;
+    transition:
+      opacity var(--dur) var(--ease),
+      transform var(--dur) var(--ease),
+      visibility 0s linear var(--dur);
+  }
+
+  .menu[data-open='true'] {
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+    transition-delay: 0s;
+  }
+
+  .menu__list {
+    display: grid;
+    gap: 0.15rem;
+  }
+
+  .menu__link {
+    display: flex;
+    justify-content: center;
+    padding: 0.8rem 0.85rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    border-radius: var(--radius);
+    transition:
+      color var(--dur-fast) ease,
+      background-color var(--dur-fast) ease;
+  }
+
+  .menu__link:hover,
+  .menu__link.is-active {
+    color: var(--text);
+    background: var(--surface-2);
+  }
+
+  .menu__cta {
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  .menu__cta + .menu__cta {
+    margin-top: 0.6rem;
+  }
+
+  @media (min-width: 768px) {
+    .header__nav {
+      display: block;
+      margin-inline: auto;
+    }
+
+    .header__brand {
+      margin-right: 0;
+    }
+
+    .header__cta {
+      display: inline-flex;
+    }
+
+    .menu-toggle,
+    .menu {
+      display: none;
+    }
+  }
+</style>

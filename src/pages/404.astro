@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../components/layout/BaseLayout.astro';
+import { bot } from '../config/bot';
+import type { PageMeta } from '../types/seo';
+
+const meta: PageMeta = {
+  title: `Page not found — ${bot.name}`,
+  description: `The page you are looking for does not exist on the ${bot.name} website.`,
+  path: '/404',
+  noindex: true,
+};
+---
+
+<BaseLayout meta={meta}>
+  <section class="notfound container" aria-labelledby="notfound-title">
+    <p class="notfound__code" aria-hidden="true">404</p>
+    <h1 class="notfound__title" id="notfound-title">Page not found</h1>
+    <p class="notfound__desc">
+      The page you are looking for does not exist, has moved, or the link is
+      broken.
+    </p>
+    <div class="notfound__actions">
+      <a href="/" class="btn btn--primary">Back to home</a>
+      <a href="/commands/" class="btn btn--secondary">Browse commands</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .notfound {
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    gap: 1rem;
+    min-height: min(65vh, 38rem);
+    padding-block: clamp(4rem, 10vw, 6.5rem);
+    text-align: center;
+  }
+
+  .notfound__code {
+    font-size: clamp(5rem, 16vw, 8.5rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.05em;
+    color: var(--accent-text);
+  }
+
+  @supports ((-webkit-background-clip: text) or (background-clip: text)) {
+    .notfound__code {
+      background-image: linear-gradient(
+        160deg,
+        var(--accent-text),
+        color-mix(in srgb, var(--accent-text) 45%, #d8b4fe)
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+  }
+
+  .notfound__title {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+  }
+
+  .notfound__desc {
+    max-width: 30rem;
+    color: var(--text-muted);
+  }
+
+  .notfound__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.85rem;
+    margin-top: 1rem;
+  }
+</style>

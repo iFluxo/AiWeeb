@@ -1,0 +1,77 @@
+---
+import { bot } from '../../config/bot';
+import Icon from '../ui/Icon.astro';
+
+interface Props {
+  id: string;
+}
+
+const { id } = Astro.props;
+---
+
+<section class="section cta" aria-labelledby={`${id}-title`}>
+  <div class="container">
+    <div class="cta__panel glass reveal">
+      <span class="eyebrow">Get started</span>
+      <h2 class="cta__title" id={`${id}-title`}>
+        Ready to bring your server to life?
+      </h2>
+      <p class="cta__desc">
+        Add {bot.name} in seconds — free forever, no setup required, and a
+        support team that actually answers.
+      </p>
+      <div class="cta__actions">
+        <a
+          href={bot.inviteUrl}
+          class="btn btn--primary btn--lg"
+          rel="noopener noreferrer"
+        >
+          Add {bot.name} to Discord
+          <Icon name="arrow-right" size={18} />
+        </a>
+        <a href="/commands/" class="btn btn--secondary btn--lg">
+          Browse commands
+        </a>
+      </div>
+      <p class="cta__note">Free forever &middot; No credit card &middot; Setup in under a minute</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta__panel {
+    display: grid;
+    justify-items: center;
+    max-width: 56rem;
+    margin-inline: auto;
+    padding: clamp(2.5rem, 6vw, 4.25rem) clamp(1.5rem, 5vw, 3rem);
+    text-align: center;
+    box-shadow: var(--shadow-2);
+  }
+
+  .cta__title {
+    max-width: 18ch;
+    font-size: clamp(1.85rem, 4.5vw, 2.75rem);
+  }
+
+  .cta__desc {
+    max-width: 36rem;
+    margin-top: 1.1rem;
+    font-size: 1.05rem;
+    color: var(--text-muted);
+  }
+
+  .cta__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.85rem;
+    margin-top: 2rem;
+  }
+
+  .cta__note {
+    margin-top: 1.5rem;
+    font-size: 0.825rem;
+    color: var(--text-faint);
+  }
+</style>

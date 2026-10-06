@@ -1,0 +1,196 @@
+---
+import BaseLayout from '../components/layout/BaseLayout.astro';
+import LegalToc from '../components/layout/LegalToc.astro';
+import PageHero from '../components/layout/PageHero.astro';
+import { bot } from '../config/bot';
+import { site } from '../config/site';
+import type { PageMeta } from '../types/seo';
+
+const meta: PageMeta = {
+  title: `Privacy Policy — ${bot.name}`,
+  description: `How ${bot.name} collects, uses, stores and protects information when you use the bot and this website. Your data is never sold.`,
+  path: '/privacy/',
+};
+
+const sections = [
+  { id: 'overview', label: 'Overview' },
+  { id: 'data-we-collect', label: 'Information we collect' },
+  { id: 'how-we-use', label: 'How we use information' },
+  { id: 'data-storage', label: 'Data storage' },
+  { id: 'data-retention', label: 'Data retention' },
+  { id: 'your-rights', label: 'Your rights' },
+  { id: 'children', label: 'Children’s privacy' },
+  { id: 'changes', label: 'Changes to this policy' },
+  { id: 'contact', label: 'Contact us' },
+];
+---
+
+<BaseLayout meta={meta}>
+  <PageHero
+    eyebrow="Legal"
+    title="Privacy Policy"
+    lead={`This policy explains how ${bot.name} handles information when you use the bot, the support server and this website.`}
+    updated={bot.legal.updatedDate}
+  />
+
+  <div class="container legal">
+    <LegalToc items={sections} />
+
+    <article class="prose">
+      <h2 id="overview">Overview</h2>
+      <p>
+        {bot.name} (the “Bot”) is a Discord bot developed and operated by
+        {bot.developer} (“we”, “us”). This Privacy Policy describes what
+        information we handle, why we handle it, and the choices available to
+        you. It applies to the Bot, the support server and this website at
+        {site.url}.
+      </p>
+      <p>
+        Our goal is simple: we collect the minimum information required to run
+        a fast, reliable service, and we never sell your personal data.
+      </p>
+
+      <h2 id="data-we-collect">Information we collect</h2>
+      <h3>Discord account and server data</h3>
+      <p>
+        When you invite the Bot or use its commands, we process identifiers
+        provided by Discord, such as your user ID, username, avatar and the IDs
+        of the servers and channels where the Bot is active. For some commands
+        we temporarily process message content — for example a moderation
+        reason or a search phrase — solely to execute that command.
+      </p>
+      <p>
+        We do not store message histories. Message content is processed in
+        memory while a command runs and is discarded immediately afterwards
+        unless you explicitly provide it as part of stored data, such as a
+        warning reason or a reminder text.
+      </p>
+
+      <h3>Server configuration</h3>
+      <p>
+        We store the settings that server administrators configure for the Bot:
+        moderation rules, level and economy settings, role rewards, language
+        preferences and similar options. This data belongs to the server and is
+        used only to provide those features.
+      </p>
+
+      <h3>Usage and diagnostic data</h3>
+      <p>
+        We collect aggregated usage statistics — such as command counts and
+        error rates — to monitor reliability and prioritise improvements.
+        Diagnostic logs are technical in nature and are not linked to a public
+        profile.
+      </p>
+
+      <h3>This website</h3>
+      <p>
+        The website does not use tracking cookies, advertising pixels or
+        third-party analytics. Your colour theme preference is stored locally
+        in your browser and never leaves your device.
+      </p>
+
+      <h2 id="how-we-use">How we use information</h2>
+      <ul>
+        <li>To provide, maintain and operate the Bot’s features.</li>
+        <li>To personalise results, such as rank cards and economy balances.</li>
+        <li>To enforce server rules and protect communities from abuse.</li>
+        <li>To diagnose errors and improve performance and reliability.</li>
+        <li>To respond to support requests you send to us.</li>
+      </ul>
+      <p>
+        We process data on the basis of our legitimate interest in running the
+        Bot, the performance of a contract with the server that invited us, and
+        your consent where required by law.
+      </p>
+
+      <h2 id="data-storage">Data storage and processing</h2>
+      <p>
+        Data is stored on infrastructure provided by reputable cloud services
+        under contractual data-protection obligations. Traffic between your
+        client, Discord and our infrastructure is encrypted in transit using
+        TLS. Access to production systems is limited to the maintainer of
+        {bot.name} and is protected by multi-factor authentication.
+      </p>
+      <p>
+        We do not sell, rent or trade personal information, and we do not share
+        it with advertisers. Third-party processors that help us operate the
+        Bot are bound by data-processing agreements and may only process data
+        on our instructions.
+      </p>
+
+      <h2 id="data-retention">Data retention</h2>
+      <ul>
+        <li>
+          Server configuration is deleted when the Bot is removed from your
+          server, and is purged from backups within 30 days.
+        </li>
+        <li>Message content is not retained after a command completes.</li>
+        <li>Diagnostic logs are rotated and deleted within 30 days.</li>
+        <li>
+          Member-level data, such as XP or balances, is kept while the member
+          remains in the server or until a deletion request is fulfilled.
+        </li>
+      </ul>
+
+      <h2 id="your-rights">Your rights and choices</h2>
+      <p>
+        Depending on your location, you may have the right to access, correct,
+        export or delete the personal data we hold about you. You can exercise
+        these rights at any time:
+      </p>
+      <ul>
+        <li>
+          Remove the Bot from your server to trigger deletion of that server’s
+          configuration.
+        </li>
+        <li>
+          Disable optional features, such as XP tracking, where the Bot offers
+          a switch for them.
+        </li>
+        <li>
+          Email <a href={`mailto:${bot.email}`}>{bot.email}</a> to request
+          access to or erasure of your personal data.
+        </li>
+      </ul>
+      <p>
+        Data that Discord itself holds is governed by
+        <a href="https://discord.com/privacy" rel="noopener noreferrer">
+          Discord’s Privacy Policy
+        </a>
+        and can be managed through your Discord account settings.
+      </p>
+
+      <h2 id="children">Children’s privacy</h2>
+      <p>
+        The Bot is not directed at anyone below the minimum age required to use
+        Discord in their jurisdiction — typically 13 years, or a higher age
+        where local law requires it. We do not knowingly collect personal
+        information from such users. If you believe a user below this age has
+        provided us with personal data, contact us and we will remove it
+        promptly.
+      </p>
+
+      <h2 id="changes">Changes to this policy</h2>
+      <p>
+        We may update this policy from time to time. The “Last updated” date at
+        the top of this page reflects the most recent revision. Material
+        changes will be announced through the support server. Continued use of
+        the Bot after an update constitutes acceptance of the revised policy.
+      </p>
+
+      <h2 id="contact">Contact us</h2>
+      <p>
+        Questions about this policy can be sent to
+        <a href={`mailto:${bot.email}`}>{bot.email}</a>. The Bot is developed
+        by {bot.developer}. If you have a concern we have not resolved, please
+        reach out and we will respond as quickly as we can.
+      </p>
+
+      <hr />
+      <p>
+        Also see our <a href="/terms/">Terms of Service</a> for the rules that
+        govern your use of {bot.name}.
+      </p>
+    </article>
+  </div>
+</BaseLayout>

@@ -1,0 +1,70 @@
+---
+import { stats } from '../../data/stats';
+import Icon from '../ui/Icon.astro';
+---
+
+<section class="section stats" id="stats" aria-label="Nebula statistics">
+  <div class="container">
+    <ul class="stats__grid reveal">
+      {
+        stats.map((stat) => (
+          <li class="stat">
+            <span class="stat__top">
+              <Icon name={stat.icon} size={18} />
+              <span class="stat__value">{stat.value}</span>
+            </span>
+            <span class="stat__label">{stat.label}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .stats__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2rem 1.25rem;
+    max-width: 42rem;
+    margin-inline: auto;
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+
+  .stat {
+    display: grid;
+    justify-items: center;
+    gap: 0.3rem;
+  }
+
+  .stat__top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: var(--accent-text);
+  }
+
+  .stat__value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+
+  .stat__label {
+    font-size: 0.825rem;
+    color: var(--text-muted);
+  }
+
+  @media (min-width: 640px) {
+    .stats__grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      padding-inline: 2.5rem;
+    }
+  }
+</style>
