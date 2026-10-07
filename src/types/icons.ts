@@ -1,4 +1,5 @@
 export const iconNames = [
+  'home',
   'shield',
   'music',
   'smile',
@@ -21,6 +22,7 @@ export const iconNames = [
   'clock',
   'file-text',
   'terminal',
+  'external-link',
 ] as const;
 
 export type IconName = (typeof iconNames)[number];

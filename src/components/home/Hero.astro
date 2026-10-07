@@ -11,17 +11,12 @@ const highlights = highlightNames
   .map((name) => commands.find((command) => command.name === name))
   .filter((command) => command !== undefined);
 
-const serverCount = stats[0]?.value ?? '';
 const uptime = stats[3]?.value ?? '';
 ---
 
 <section class="hero">
   <div class="container hero__grid">
     <div class="hero__content">
-      <span class="badge animate-in">
-        <span class="badge__dot" aria-hidden="true"></span>
-        Trusted by {serverCount} servers
-      </span>
 
       <h1 class="hero__title animate-in delay-1">
         Run your Discord server on <span class="hero__accent">autopilot</span>.
@@ -135,14 +130,22 @@ const uptime = stats[3]?.value ?? '';
 
   .hero__actions {
     display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    gap: 0.85rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem;
     max-width: 34rem;
     margin: 2.25rem auto 0;
   }
 
   .hero__actions .btn {
     width: 100%;
+  }
+
+  @media (max-width: 639.98px) {
+    .hero__actions .btn {
+      padding: 0.85rem 1rem;
+      font-size: 0.85rem;
+      border-radius: var(--radius-sm);
+    }
   }
 
   .hero__visual {
@@ -246,11 +249,5 @@ const uptime = stats[3]?.value ?? '';
     font-size: 0.78rem;
     color: var(--text-faint);
     border-top: 1px solid var(--border);
-  }
-
-  @media (min-width: 640px) {
-    .hero__actions {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
   }
 </style>

@@ -4,14 +4,24 @@ import { bot } from '../../config/bot';
 interface Props {
   withName?: boolean;
   image?: string;
+  href?: string;
 }
 
-const { withName = true, image = '/me.svg' } = Astro.props;
+const { withName = true, image = '/me.svg', href } = Astro.props;
 ---
 
 <span class="logo">
-  <img class="logo__image" src={image} alt="" width={38} height={38} />
-  {withName && <span class="logo__name">{bot.name}</span>}
+  <img class="logo__image" src={image} alt="" width={32} height={32} />
+  {
+    withName &&
+      (href !== undefined ? (
+        <a class="logo__name logo__name--link" href={href}>
+          {bot.name}
+        </a>
+      ) : (
+        <span class="logo__name">{bot.name}</span>
+      ))
+  }
 </span>
 
 <style>
@@ -22,8 +32,8 @@ const { withName = true, image = '/me.svg' } = Astro.props;
   }
 
   .logo__image {
-    width: 2.25rem;
-    height: 2.25rem;
+    width: 2rem;
+    height: 2rem;
     flex-shrink: 0;
     object-fit: cover;
     border-radius: var(--radius-sm);
@@ -35,5 +45,13 @@ const { withName = true, image = '/me.svg' } = Astro.props;
     font-weight: 700;
     letter-spacing: -0.02em;
     color: var(--text);
+  }
+
+  .logo__name--link {
+    transition: color var(--dur) var(--ease);
+  }
+
+  .logo__name--link:hover {
+    color: var(--accent-text);
   }
 </style>
