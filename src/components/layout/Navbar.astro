@@ -84,6 +84,7 @@ const isActive = (href: string) =>
             </li>
           ))
         }
+        <li class="menu__divider" aria-hidden="true"></li>
         <li>
           <a
             href={bot.inviteUrl}
@@ -369,7 +370,7 @@ const isActive = (href: string) =>
     right: 0;
     max-height: calc(100vh - var(--nav-h));
     max-height: calc(100dvh - var(--nav-h));
-    padding-block: 1rem 1.4rem;
+    padding-block: 0.9rem 1.1rem;
     overflow-y: auto;
     overscroll-behavior: contain;
     visibility: hidden;
@@ -422,10 +423,14 @@ const isActive = (href: string) =>
     gap: 0.3rem;
   }
 
-  .menu__link {
-    --chip-bg: rgb(255 255 255 / 0.06);
-    --chip-border: rgb(255 255 255 / 0.1);
+  .menu__divider {
+    grid-column: 1 / -1;
+    height: 1px;
+    margin-block: 0.3rem;
+    background: var(--border);
+  }
 
+  .menu__link {
     display: flex;
     align-items: center;
     gap: 0.4rem;
@@ -433,28 +438,12 @@ const isActive = (href: string) =>
     font-size: 0.85rem;
     font-weight: 600;
     color: var(--text-muted);
-    background: var(--chip-bg);
-    border: 1px solid var(--chip-border);
     border-radius: var(--radius);
-    box-shadow:
-      inset 0 1px rgb(255 255 255 / 0.08),
-      inset 0 -1px rgb(255 255 255 / 0.04);
     transition:
       color var(--dur) var(--ease),
       background-color var(--dur) var(--ease-spring),
       transform var(--dur-fast) var(--ease);
     will-change: transform, color, background-color;
-  }
-
-  @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-    .menu__link {
-      backdrop-filter: blur(18px) saturate(1.5);
-    }
-  }
-
-  html[data-theme='light'] .menu__link {
-    --chip-bg: rgb(255 255 255 / 0.7);
-    --chip-border: rgb(15 23 42 / 0.08);
   }
 
   .menu__link:hover {
@@ -469,7 +458,6 @@ const isActive = (href: string) =>
 
   .menu__link.is-active {
     color: var(--text);
-    background: var(--surface-3);
   }
 
   .menu__cta {

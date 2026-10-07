@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../components/layout/BaseLayout.astro';
+import Icon from '../components/ui/Icon.astro';
 import { bot } from '../config/bot';
 import type { PageMeta } from '../types/seo';
 
@@ -21,7 +22,10 @@ const meta: PageMeta = {
     </p>
     <div class="notfound__actions">
       <a href="/" class="btn btn--primary">Back to home</a>
-      <a href="/commands" class="btn btn--secondary">Browse commands</a>
+      <a href="/commands" class="btn btn--secondary">
+        <Icon name="search" size={18} />
+        Browse Commands
+      </a>
     </div>
   </section>
 </BaseLayout>
