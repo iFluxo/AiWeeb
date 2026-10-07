@@ -4,7 +4,7 @@ export const site = {
   name: bot.name,
   title: `${bot.name} — ${bot.tagline}`,
   description: bot.description,
-  url: 'https://nebulabot.dev',
+  url: 'https://aichan.web.app',
   lang: 'en',
   locale: 'en_US',
   themeColorDark: '#07080c',

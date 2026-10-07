@@ -1,6 +1,6 @@
 # AiWeeb
 
-Static site untuk Nebula — bot Discord. Dibangun dengan [Astro](https://astro.build) dan di-deploy ke [Firebase Hosting](https://firebase.google.com/docs/hosting).
+Static site untuk Aichan — bot Discord. Dibangun dengan [Astro](https://astro.build) dan di-deploy ke [Firebase Hosting](https://firebase.google.com/docs/hosting).
 
 ## Perintah
 
@@ -24,7 +24,7 @@ Siapkan tiga secrets di repository:
 | Secret | Deskripsi |
 | --- | --- |
 | `FIREBASE_SERVICE_ACCOUNT` | Service account key JSON (Roles: `Firebase Admin`, `Firebase Hosting Admin`) |
-| `FIREBASE_PROJECT_ID` | Project ID Firebase Hosting (contoh: `nebulabot`) |
+| `FIREBASE_PROJECT_ID` | Project ID Firebase Hosting (contoh: `aichanbot`) |
 | `GITHUB_TOKEN` | Otomatis disediakan GitHub — tidak perlu diisi |
 
 ### Manual (Firebase CLI)
