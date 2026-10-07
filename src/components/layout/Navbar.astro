@@ -158,13 +158,35 @@ const isActive = (href: string) =>
     z-index: 100;
     background: var(--nav-bg);
     border-bottom: 1px solid var(--border);
-    backdrop-filter: blur(var(--blur)) saturate(1.6);
-    -webkit-backdrop-filter: blur(var(--blur)) saturate(1.6);
-    transition: box-shadow var(--dur) ease;
+    backdrop-filter: blur(var(--nav-blur)) saturate(1.8);
+    -webkit-backdrop-filter: blur(var(--nav-blur)) saturate(1.8);
+    transition:
+      box-shadow var(--dur-slow) var(--ease-spring),
+      background-color var(--dur) var(--ease-spring),
+      border-color var(--dur) var(--ease);
+  }
+
+  html[data-theme="dark"] .header {
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.05) 0%,
+      var(--nav-bg) 45%,
+      rgba(255, 255, 255, 0.02) 100%
+    );
+    border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.16),
+      0 6px 28px -20px rgba(0, 0, 0, 0.6);
   }
 
   .header.is-scrolled {
     box-shadow: 0 10px 30px -18px rgb(0 0 0 / 0.5);
+  }
+
+  html[data-theme="dark"] .header.is-scrolled {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.18),
+      0 14px 38px -16px rgba(0, 0, 0, 0.65);
   }
 
   .header__inner {
@@ -179,6 +201,15 @@ const isActive = (href: string) =>
     align-items: center;
     margin-right: auto;
     border-radius: var(--radius-sm);
+    transition: transform var(--dur-fast) var(--ease);
+  }
+
+  .header__brand:hover {
+    transform: translateY(-0.5px);
+  }
+
+  .header__brand:active {
+    transform: translateY(0);
   }
 
   .header__nav {
@@ -198,13 +229,20 @@ const isActive = (href: string) =>
     color: var(--text-muted);
     border-radius: var(--radius-sm);
     transition:
-      color var(--dur-fast) ease,
-      background-color var(--dur-fast) ease;
+      color var(--dur) var(--ease),
+      background-color var(--dur) var(--ease-spring),
+      transform var(--dur-fast) var(--ease);
+    will-change: transform, color, background-color;
   }
 
   .nav-link:hover {
     color: var(--text);
     background: var(--surface-2);
+    transform: translateY(-0.5px);
+  }
+
+  .nav-link:active {
+    transform: translateY(0);
   }
 
   .nav-link.is-active {
@@ -232,9 +270,11 @@ const isActive = (href: string) =>
     border-radius: var(--radius-sm);
     cursor: pointer;
     transition:
-      color var(--dur-fast) ease,
-      background-color var(--dur-fast) ease,
-      border-color var(--dur-fast) ease;
+      color var(--dur) var(--ease),
+      background-color var(--dur) var(--ease-spring),
+      border-color var(--dur-fast) ease,
+      transform var(--dur-fast) var(--ease);
+    will-change: transform, color, background-color;
   }
 
   .theme-toggle:hover,
@@ -242,6 +282,12 @@ const isActive = (href: string) =>
     color: var(--text);
     background: var(--surface-2);
     border-color: var(--border-strong);
+    transform: translateY(-0.5px);
+  }
+
+  .theme-toggle:active,
+  .menu-toggle:active {
+    transform: translateY(0);
   }
 
   :global(.theme-toggle__icon--moon),
@@ -287,20 +333,34 @@ const isActive = (href: string) =>
     opacity: 0;
     background: color-mix(in srgb, var(--bg-elevated) 92%, transparent);
     border-bottom: 1px solid var(--border);
-    backdrop-filter: blur(var(--blur)) saturate(1.6);
-    -webkit-backdrop-filter: blur(var(--blur)) saturate(1.6);
-    transform: translateY(-6px);
+    backdrop-filter: blur(var(--nav-blur)) saturate(1.8);
+    -webkit-backdrop-filter: blur(var(--nav-blur)) saturate(1.8);
+    transform: translateY(-8px) scale(0.995);
     pointer-events: none;
     transition:
-      opacity var(--dur) var(--ease),
-      transform var(--dur) var(--ease),
-      visibility 0s linear var(--dur);
+      opacity var(--dur) var(--ease-spring),
+      transform var(--dur-slow) var(--ease-spring),
+      visibility 0s linear var(--dur-slow);
+    will-change: transform, opacity;
+  }
+
+  html[data-theme="dark"] .menu {
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.07) 0%,
+      color-mix(in srgb, var(--bg-elevated) 96%, transparent) 60%,
+      rgba(255, 255, 255, 0.02) 100%
+    );
+    border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.16),
+      0 18px 48px -20px rgba(0, 0, 0, 0.7);
   }
 
   .menu[data-open='true'] {
     visibility: visible;
     opacity: 1;
-    transform: none;
+    transform: translateY(0) scale(1);
     pointer-events: auto;
     transition-delay: 0s;
   }
@@ -319,14 +379,25 @@ const isActive = (href: string) =>
     color: var(--text-muted);
     border-radius: var(--radius);
     transition:
-      color var(--dur-fast) ease,
-      background-color var(--dur-fast) ease;
+      color var(--dur) var(--ease),
+      background-color var(--dur) var(--ease-spring),
+      transform var(--dur-fast) var(--ease);
+    will-change: transform, color, background-color;
   }
 
-  .menu__link:hover,
-  .menu__link.is-active {
+  .menu__link:hover {
     color: var(--text);
     background: var(--surface-2);
+    transform: translateY(-0.5px);
+  }
+
+  .menu__link:active {
+    transform: translateY(0);
+  }
+
+  .menu__link.is-active {
+    color: var(--text);
+    background: var(--surface-3);
   }
 
   .menu__cta {
@@ -336,6 +407,15 @@ const isActive = (href: string) =>
 
   .menu__cta + .menu__cta {
     margin-top: 0.6rem;
+  }
+
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .header,
+    html[data-theme="dark"] .header,
+    .menu,
+    html[data-theme="dark"] .menu {
+      background: color-mix(in srgb, var(--bg-elevated) 97%, transparent);
+    }
   }
 
   @media (min-width: 768px) {

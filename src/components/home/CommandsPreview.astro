@@ -61,9 +61,10 @@ const featured = featuredNames
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     transition:
-      border-color var(--dur) ease,
-      background-color var(--dur) ease,
-      transform var(--dur) var(--ease);
+      border-color var(--dur) var(--ease),
+      background-color var(--dur) var(--ease-spring),
+      transform var(--dur-slow) var(--ease-spring);
+    will-change: transform, border-color, background-color;
   }
 
   .preview__item:hover {

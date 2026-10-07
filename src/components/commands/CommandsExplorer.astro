@@ -169,9 +169,10 @@ const categories = commandCategories.map((name) => ({
     border-radius: var(--radius);
     outline: none;
     transition:
-      border-color var(--dur-fast) ease,
-      background-color var(--dur-fast) ease,
-      box-shadow var(--dur-fast) ease;
+      border-color var(--dur) var(--ease),
+      background-color var(--dur) var(--ease-spring),
+      box-shadow var(--dur) var(--ease);
+    will-change: border-color, background-color, box-shadow;
     appearance: none;
   }
 
@@ -209,8 +210,8 @@ const categories = commandCategories.map((name) => ({
     border-radius: var(--radius-sm);
     cursor: pointer;
     transition:
-      color var(--dur-fast) ease,
-      background-color var(--dur-fast) ease,
+      color var(--dur) var(--ease),
+      background-color var(--dur) var(--ease-spring),
       border-color var(--dur-fast) ease;
   }
 

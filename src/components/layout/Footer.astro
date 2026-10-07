@@ -129,7 +129,8 @@ const year = new Date().getFullYear();
 
   .footer__links a {
     color: var(--text-muted);
-    transition: color var(--dur-fast) ease;
+    transition: color var(--dur) var(--ease);
+    will-change: color;
   }
 
   .footer__links a:hover {

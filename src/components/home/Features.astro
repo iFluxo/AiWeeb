@@ -44,9 +44,10 @@ import Icon from '../ui/Icon.astro';
     align-content: start;
     padding: 1.75rem 1.6rem;
     transition:
-      transform var(--dur) var(--ease),
-      border-color var(--dur) ease,
-      background-color var(--dur) ease;
+      transform var(--dur-slow) var(--ease-spring),
+      border-color var(--dur) var(--ease),
+      background-color var(--dur) var(--ease-spring);
+    will-change: transform, border-color, background-color;
   }
 
   .feature:hover {

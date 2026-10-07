@@ -13,12 +13,12 @@ const { eyebrow, title, lead, updated } = Astro.props;
 ---
 
 <header class="page-hero container container--narrow">
-  <span class="eyebrow">{eyebrow}</span>
-  <h1 class="page-title">{title}</h1>
-  <p class="page-lead">{lead}</p>
+  <span class="eyebrow animate-in">{eyebrow}</span>
+  <h1 class="page-title animate-in delay-1">{title}</h1>
+  <p class="page-lead animate-in delay-2">{lead}</p>
   {
     updated && (
-      <p class="meta-line">
+      <p class="meta-line animate-in delay-3">
         <Icon name="clock" size={15} />
         <span>
           Last updated{' '}
