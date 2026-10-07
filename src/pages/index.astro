@@ -12,7 +12,9 @@ import type { PageMeta } from '../types/seo';
 const meta: PageMeta = {
   title: site.title,
   description: site.description,
-  image: "/me.png",
+  image: {
+    url: "/me.png",
+  },
   path: '/',
   structuredData: [
     {
