@@ -8,7 +8,7 @@
   --font-mono:
     ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
 
-  --bg: #0b0c14;
+  --bg: #07080d;
   --bg-elevated: #11121c;
   --surface-1: rgba(255, 255, 255, 0.05);
   --surface-2: rgba(255, 255, 255, 0.08);
@@ -31,8 +31,8 @@
   --accent-soft: rgba(88, 101, 242, 0.16);
   --glow: rgba(88, 101, 242, 0.45);
   --bg-radial:
-    radial-gradient(120rem 40rem at 50% -10rem, rgba(140, 160, 255, 0.12), transparent 70%),
-    radial-gradient(80rem 32rem at 80% 0rem, rgba(190, 210, 255, 0.08), transparent 65%);
+    radial-gradient(120rem 40rem at 50% -10rem, rgba(214, 221, 236, 0.16), transparent 70%),
+    radial-gradient(80rem 32rem at 80% 0rem, rgba(186, 196, 220, 0.1), transparent 65%);
 
   --success: #45d682;
   --warning: #f5b944;
@@ -136,11 +136,6 @@ body {
   background-repeat: no-repeat;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  animation: page-in var(--dur-load) var(--ease-smooth) both;
-}
-
-html:active-view-transition body {
-  animation: none;
 }
 
 img,
@@ -603,16 +598,6 @@ html[data-theme="dark"] .card {
   }
 }
 
-@keyframes page-in {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
 @keyframes fade-up {
   from {
     opacity: 0;
@@ -656,16 +641,6 @@ html[data-theme="dark"] .card {
   }
 }
 
-@view-transition {
-  navigation: auto;
-}
-
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation-duration: 320ms;
-  animation-timing-function: var(--ease-smooth);
-}
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -679,10 +654,5 @@ html[data-theme="dark"] .card {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     transition-delay: 0ms !important;
-  }
-
-  ::view-transition-old(root),
-  ::view-transition-new(root) {
-    animation: none;
   }
 }

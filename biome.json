@@ -1,7 +1,15 @@
 {
   "$schema": "https://biomejs.dev/schemas/2.5.15/schema.json",
   "files": {
-    "includes": ["**", "!**/dist", "!**/.astro", "!**/node_modules", "!**/bun.lock", "!**/*.astro"]
+    "includes": [
+      "**",
+      "!**/dist",
+      "!**/.astro",
+      "!**/node_modules",
+      "!**/bun.lock",
+      "!**/*.astro",
+      "!**/public"
+    ]
   },
   "formatter": {
     "enabled": true,

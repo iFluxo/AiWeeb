@@ -11,9 +11,9 @@ const isActive = (href: string) =>
 
 <header class="header" data-header>
   <div class="container header__inner">
-    <a href="/" class="header__brand" aria-label={`${bot.name} — home`}>
+    <span class="header__brand">
       <Logo />
-    </a>
+    </span>
 
     <nav class="header__nav" aria-label="Main navigation">
       <ul class="header__list">
@@ -156,37 +156,9 @@ const isActive = (href: string) =>
     position: sticky;
     top: 0;
     z-index: 100;
-    background: var(--nav-bg);
-    border-bottom: 1px solid var(--border);
-    backdrop-filter: blur(var(--nav-blur)) saturate(1.8);
-    -webkit-backdrop-filter: blur(var(--nav-blur)) saturate(1.8);
-    transition:
-      box-shadow var(--dur-slow) var(--ease-spring),
-      background-color var(--dur) var(--ease-spring),
-      border-color var(--dur) var(--ease);
-  }
-
-  html[data-theme="dark"] .header {
-    background: linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0.05) 0%,
-      var(--nav-bg) 45%,
-      rgba(255, 255, 255, 0.02) 100%
-    );
-    border-bottom: 1px solid rgba(255, 255, 255, 0.14);
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.16),
-      0 6px 28px -20px rgba(0, 0, 0, 0.6);
-  }
-
-  .header.is-scrolled {
-    box-shadow: 0 10px 30px -18px rgb(0 0 0 / 0.5);
-  }
-
-  html[data-theme="dark"] .header.is-scrolled {
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.18),
-      0 14px 38px -16px rgba(0, 0, 0, 0.65);
+    width: min(100% - 1.5rem, var(--container));
+    margin-top: 0.75rem;
+    margin-inline: auto;
   }
 
   .header__inner {
@@ -194,6 +166,70 @@ const isActive = (href: string) =>
     align-items: center;
     gap: 1rem;
     height: var(--nav-h);
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 18px 50px -26px rgb(0 0 0 / 0.6);
+    transition:
+      box-shadow var(--dur-slow) var(--ease-spring),
+      border-color var(--dur) var(--ease);
+  }
+
+  .header:has(.menu[data-open='true']) .header__inner {
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  }
+
+  .header.is-scrolled .header__inner {
+    box-shadow: 0 14px 40px -22px rgb(0 0 0 / 0.65);
+  }
+
+  html[data-theme='dark'] .header.is-scrolled .header__inner {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.18),
+      0 20px 46px -20px rgba(0, 0, 0, 0.7);
+  }
+
+  @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .header__inner {
+      background: rgb(9 10 17 / 0.56);
+      -webkit-backdrop-filter: blur(var(--nav-blur)) saturate(2);
+      backdrop-filter: blur(var(--nav-blur)) saturate(2);
+      border-color: rgba(255, 255, 255, 0.16);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.18),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.07),
+        0 22px 55px -24px rgba(0, 0, 0, 0.7);
+    }
+
+    .header.is-scrolled .header__inner {
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.08),
+        0 26px 60px -22px rgba(0, 0, 0, 0.78);
+    }
+
+    html[data-theme='dark'] .header.is-scrolled .header__inner {
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.08),
+        0 26px 60px -22px rgba(0, 0, 0, 0.78);
+    }
+
+    html[data-theme='light'] .header__inner {
+      background: rgb(255 255 255 / 0.6);
+      -webkit-backdrop-filter: blur(var(--nav-blur)) saturate(2);
+      backdrop-filter: blur(var(--nav-blur)) saturate(2);
+      border-color: rgba(16, 20, 35, 0.1);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.95),
+        0 22px 50px -26px rgb(16 20 35 / 0.35);
+    }
+
+    html[data-theme='light'] .header.is-scrolled .header__inner {
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.95),
+        0 26px 55px -24px rgb(16 20 35 / 0.4);
+    }
   }
 
   .header__brand {
@@ -201,15 +237,6 @@ const isActive = (href: string) =>
     align-items: center;
     margin-right: auto;
     border-radius: var(--radius-sm);
-    transition: transform var(--dur-fast) var(--ease);
-  }
-
-  .header__brand:hover {
-    transform: translateY(-0.5px);
-  }
-
-  .header__brand:active {
-    transform: translateY(0);
   }
 
   .header__nav {
@@ -269,6 +296,7 @@ const isActive = (href: string) =>
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
     transition:
       color var(--dur) var(--ease),
       background-color var(--dur) var(--ease-spring),
@@ -331,10 +359,10 @@ const isActive = (href: string) =>
     overscroll-behavior: contain;
     visibility: hidden;
     opacity: 0;
-    background: color-mix(in srgb, var(--bg-elevated) 92%, transparent);
+    background: var(--bg-elevated);
     border-bottom: 1px solid var(--border);
-    backdrop-filter: blur(var(--nav-blur)) saturate(1.8);
-    -webkit-backdrop-filter: blur(var(--nav-blur)) saturate(1.8);
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+    -webkit-tap-highlight-color: transparent;
     transform: translateY(-8px) scale(0.995);
     pointer-events: none;
     transition:
@@ -345,16 +373,22 @@ const isActive = (href: string) =>
   }
 
   html[data-theme="dark"] .menu {
-    background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.07) 0%,
-      color-mix(in srgb, var(--bg-elevated) 96%, transparent) 60%,
-      rgba(255, 255, 255, 0.02) 100%
-    );
     border-bottom: 1px solid rgba(255, 255, 255, 0.14);
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.16),
       0 18px 48px -20px rgba(0, 0, 0, 0.7);
+  }
+
+  @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .menu {
+      background: rgb(9 10 17 / 0.56);
+      -webkit-backdrop-filter: blur(var(--nav-blur)) saturate(2);
+      backdrop-filter: blur(var(--nav-blur)) saturate(2);
+    }
+
+    html[data-theme='light'] .menu {
+      background: rgb(255 255 255 / 0.6);
+    }
   }
 
   .menu[data-open='true'] {
@@ -407,15 +441,6 @@ const isActive = (href: string) =>
 
   .menu__cta + .menu__cta {
     margin-top: 0.6rem;
-  }
-
-  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-    .header,
-    html[data-theme="dark"] .header,
-    .menu,
-    html[data-theme="dark"] .menu {
-      background: color-mix(in srgb, var(--bg-elevated) 97%, transparent);
-    }
   }
 
   @media (min-width: 768px) {
