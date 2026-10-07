@@ -1,5 +1,5 @@
 ---
-import CommandsExplorer from '../components/commands/CommandsExplorer.astro';
+import CommandsExplorer from '../components/commandsCommandsExplorer.astro';
 import BaseLayout from '../components/layout/BaseLayout.astro';
 import PageHero from '../components/layout/PageHero.astro';
 import { bot } from '../config/bot';
@@ -9,7 +9,7 @@ import type { PageMeta } from '../types/seo';
 const meta: PageMeta = {
   title: `Commands — ${bot.name}`,
   description: `Browse all ${commands.length} ${bot.name} slash commands with usage, options, permissions and cooldowns. Search instantly and filter by category.`,
-  path: '/commands/',
+  path: '/commands',
 };
 ---
 
