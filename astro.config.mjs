@@ -4,7 +4,7 @@ import { site } from './src/config/site';
 
 export default defineConfig({
   site: site.url,
-  trailingSlash: 'never',
+  trailingSlash: 'ignore',
   compressHTML: true,
   integrations: [
     sitemap({
