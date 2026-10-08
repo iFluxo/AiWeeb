@@ -1,4 +1,4 @@
-const clientId = '1024571054690099261';
+const clientId = 'soon';
 
 export const bot = {
   name: 'Aichan',
@@ -6,9 +6,9 @@ export const bot = {
   description:
     'Ultra High Performance Bot - So fast, responsive, reliable and free. Better than others...',
   clientId,
-  inviteUrl: `https://discord.com/oauth2/authorize?client_id=${clientId}&permissions=104328774&scope=bot%20applications.commands`,
-  supportUrl: 'https://discord.gg/aichanbot',
-  email: 'support@aichanbot.dev',
+  inviteUrl: '/invite-link',
+  supportUrl: '/discord-link',
+  email: 'support@aichan.web.app',
   developer: 'iFluxo Labs',
   legal: {
     jurisdiction: 'Indonesia',
