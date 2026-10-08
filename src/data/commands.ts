@@ -1,7 +1,7 @@
 import type { Command } from '../types/command';
 
 export const commands: readonly Command[] = [
-  {
+  /*{
     name: 'ban',
     description: 'Ban a member from the server, optionally deleting their recent messages.',
     category: 'Moderation',
@@ -193,7 +193,7 @@ export const commands: readonly Command[] = [
     ],
     permissions: [],
     cooldown: '2s',
-  },
+  },*/
   {
     name: '8ball',
     description: 'Ask the magic 8-ball a yes-or-no question and get an answer.',

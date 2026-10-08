@@ -2,7 +2,7 @@
 import { commands } from '../../data/commands';
 import Icon from '../ui/Icon.astro';
 
-const featuredNames = ['play', 'ban', 'rank', 'daily', 'serverinfo', 'meme'] as const;
+const featuredNames = ['leaderboard', 'rank', 'daily', 'balance', 'avatar', 'hug'] as const;
 
 const featured = featuredNames
   .map((name) => commands.find((command) => command.name === name))

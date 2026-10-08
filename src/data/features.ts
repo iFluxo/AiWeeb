@@ -1,7 +1,7 @@
 import type { Feature } from '../types/feature';
 
 export const features: readonly Feature[] = [
-  {
+  /*{
     icon: 'shield',
     title: 'Powerful moderation',
     description:
@@ -12,7 +12,7 @@ export const features: readonly Feature[] = [
     title: 'Crystal-clear music',
     description:
       'Queue, loops and playlists with high-fidelity audio, smart filters and zero setup required.',
-  },
+  },*/
   {
     icon: 'smile',
     title: 'Endless fun',

@@ -5,7 +5,7 @@ import { stats } from '../../data/stats';
 import Icon from '../ui/Icon.astro';
 import Logo from '../ui/Logo.astro';
 
-const highlightNames = ['play', 'purge', 'rank'] as const;
+const highlightNames = ['shop', 'rank', 'daily'] as const;
 
 const highlights = highlightNames
   .map((name) => commands.find((command) => command.name === name))
@@ -19,11 +19,11 @@ const uptime = stats[3]?.value ?? '';
     <div class="hero__content">
 
       <h1 class="hero__title animate-in delay-1">
-        Run your Discord server on <span class="hero__accent">autopilot</span>.
+        <span class="hero__accent">Ultra High Performance</span>. Bot.
       </h1>
 
       <p class="hero__lead animate-in delay-2">
-        {bot.name} handles moderation, music, leveling and everyday tasks — so you
+        {bot.name} handles economy, leveling and everyday tasks — so you
         can focus on your community instead of your tooling.
       </p>
 

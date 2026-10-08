@@ -1,6 +1,6 @@
 export const commandCategories = [
-  'Moderation',
-  'Music',
+  //'Moderation',
+  //'Music',
   'Fun',
   'Utility',
   'Economy',
