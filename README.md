@@ -5,19 +5,19 @@ Static site untuk Aichan — bot Discord. Dibangun dengan [Astro](https://astro.
 ## Perintah
 
 ```sh
-npm install        # install dependencies
-npm run dev        # development server
-npm run build      # build statis ke dist/
-npm run preview    # pratinjau hasil build
-npm run typecheck  # cek tipe TypeScript (tsc --noEmit)
-npm run lint       # lint dengan Biome
+bun install        # install dependencies
+bun run dev        # development server
+bun run build      # build statis ke dist/
+bun run preview    # pratinjau hasil build
+bun run typecheck  # cek tipe TypeScript (tsc --noEmit)
+bun run lint       # lint dengan Biome
 ```
 
 ## Deploy ke Firebase Hosting
 
 ### Otomatis (GitHub Actions)
 
-Workflow `.github/workflows/firebase.yml` menjalankan `typecheck` → `lint` → `build` lalu deploy ke channel `live` setiap push ke `main`.
+Workflow `.github/workflows/firebase.yml` menjalankan `typecheck` → `lint` → `build` lalu deploy ke channel `live` setiap push ke `main`. Sepenuhnya pakai Bun: install (`bun install --frozen-lockfile`) dan semua script dijalankan di runtime Bun (`bun --bun run …`) — tanpa Node.
 
 Siapkan tiga secrets di repository:
 
@@ -30,7 +30,7 @@ Siapkan tiga secrets di repository:
 ### Manual (Firebase CLI)
 
 ```sh
-npm i -g firebase-tools
+bun add -g firebase-tools
 firebase login
 firebase deploy --only hosting --project <FIREBASE_PROJECT_ID>
 ```

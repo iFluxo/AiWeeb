@@ -15,6 +15,7 @@ const optionLabel = `${command.options.length} option${command.options.length ==
 <li
   class="cmd"
   data-card
+  data-name={command.name}
   data-category={command.category}
   data-search={searchText}
 >
@@ -67,6 +68,7 @@ const optionLabel = `${command.options.length} option${command.options.length ==
     display: flex;
     flex-direction: column;
     gap: 0.85rem;
+    scroll-margin-top: calc(var(--nav-h) + 1.5rem);
     padding: 1.35rem 1.4rem;
     background: var(--surface-1);
     border: 1px solid var(--border);
@@ -76,6 +78,11 @@ const optionLabel = `${command.options.length} option${command.options.length ==
       background-color var(--dur) var(--ease-spring),
       transform var(--dur-slow) var(--ease-spring);
     will-change: transform, border-color, background-color;
+  }
+
+  .cmd--target {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
   }
 
   .cmd:hover {

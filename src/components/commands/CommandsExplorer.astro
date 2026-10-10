@@ -113,6 +113,21 @@ const categories = commandCategories.map((name) => ({
     }
   };
 
+  const syncUrl = () => {
+    const query = searchInput?.value.trim() ?? '';
+    const next = query ? `?name=${encodeURIComponent(query)}` : window.location.pathname;
+    history.replaceState(null, '', next);
+  };
+
+  const revealName = (name: string) => {
+    const target = cards.find(
+      (card) => card.dataset.name?.toLowerCase() === name.toLowerCase(),
+    );
+    if (!target || target.hidden) return;
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    target.classList.add('cmd--target');
+  };
+
   for (const filter of filters) {
     filter.addEventListener('click', () => {
       activeCategory = filter.dataset.category ?? 'All';
@@ -120,12 +135,16 @@ const categories = commandCategories.map((name) => ({
     });
   }
 
-  searchInput?.addEventListener('input', applyFilters);
+  searchInput?.addEventListener('input', () => {
+    applyFilters();
+    syncUrl();
+  });
 
   searchInput?.addEventListener('keydown', (event) => {
     if (event.key === 'Escape' && searchInput.value !== '') {
       searchInput.value = '';
       applyFilters();
+      syncUrl();
     }
   });
 
@@ -133,10 +152,18 @@ const categories = commandCategories.map((name) => ({
     if (searchInput) searchInput.value = '';
     activeCategory = 'All';
     applyFilters();
+    syncUrl();
     searchInput?.focus();
   });
 
   applyFilters();
+
+  const requestedName = new URLSearchParams(window.location.search).get('name');
+  if (requestedName) {
+    if (searchInput) searchInput.value = requestedName;
+    applyFilters();
+    revealName(requestedName);
+  }
 </script>
 
 <style>

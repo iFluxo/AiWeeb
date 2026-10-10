@@ -21,7 +21,8 @@ const { meta } = Astro.props;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <Seo meta={meta} />
-    <link rel="icon" type="image/svg+xml" href="/me.svg" />
+    <link rel="preload" as="image" href="/me-avatar.png" />
+    <link rel="icon" type="image/png" href="/me-avatar.png" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <script is:inline>
@@ -37,6 +38,13 @@ const { meta } = Astro.props;
               ? 'light'
               : 'dark';
         document.documentElement.dataset.theme = theme;
+
+        try {
+          var navEntries = performance.getEntriesByType('navigation');
+          if (navEntries[0] && navEntries[0].type === 'reload') {
+            history.scrollRestoration = 'manual';
+          }
+        } catch {}
       })();
     </script>
     <slot name="head" />

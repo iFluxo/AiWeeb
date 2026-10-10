@@ -148,4 +148,7 @@ vite.config.ts.timestamp-*
 # Turbo Repo
 .turbo
 
-bun.*
+# Bun
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
